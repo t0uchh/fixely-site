@@ -1,0 +1,37 @@
+---
+// Cadre élégant pour une capture d'écran (navigateur ou téléphone).
+// Si `src` pointe vers une image absente, le navigateur affiche le fallback
+// `alt` — pense à déposer les PNG dans /public/screenshots/.
+interface Props {
+  src: string;
+  alt: string;
+  variant?: "browser" | "phone";
+  url?: string;
+  class?: string;
+}
+const { src, alt, variant = "browser", url = "fixely.aegix.fr", class: cls = "" } = Astro.props;
+---
+
+{
+  variant === "browser" ? (
+    <figure class={`overflow-hidden rounded-2xl border border-ink-300/40 bg-white shadow-2xl shadow-brand-900/10 ${cls}`}>
+      <div class="flex items-center gap-1.5 border-b border-ink-300/30 bg-ink-900/[0.03] px-4 py-2.5">
+        <span class="h-2.5 w-2.5 rounded-full bg-red-400" />
+        <span class="h-2.5 w-2.5 rounded-full bg-amber-400" />
+        <span class="h-2.5 w-2.5 rounded-full bg-green-400" />
+        <span class="ml-3 truncate rounded-md bg-white px-3 py-1 text-[11px] text-ink-500 shadow-sm">
+          {url}
+        </span>
+      </div>
+      <img src={src} alt={alt} loading="lazy" class="block w-full" />
+    </figure>
+  ) : (
+    <figure class={`mx-auto w-full max-w-[280px] ${cls}`}>
+      <div class="rounded-[2.25rem] border-[6px] border-ink-900 bg-ink-900 shadow-2xl shadow-brand-900/20">
+        <div class="overflow-hidden rounded-[1.75rem] bg-white">
+          <img src={src} alt={alt} loading="lazy" class="block w-full" />
+        </div>
+      </div>
+    </figure>
+  )
+}

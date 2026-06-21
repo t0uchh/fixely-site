@@ -1,0 +1,237 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const plans = [
+  {
+    name: "Essentiel",
+    pitch: "Pour digitaliser vos interventions et équiper vos techniciens.",
+    annual: "19",
+    monthly: "24",
+    unit: "/ utilisateur / mois",
+    highlight: false,
+    cta: "Demander une démo",
+    devis: false,
+    features: [
+      "App mobile iOS / Android",
+      "Mode hors-ligne complet",
+      "Workflow d'intervention guidé (GPS)",
+      "Planning & affectation",
+      "Formulaires métier sans code",
+      "Photos, signatures, rapports PDF",
+      "Portail client",
+    ],
+  },
+  {
+    name: "Pro / Métier",
+    pitch: "Pour la conformité réglementaire et le pilotage commercial.",
+    annual: "39",
+    monthly: "49",
+    unit: "/ utilisateur / mois",
+    highlight: true,
+    cta: "Demander une démo",
+    devis: false,
+    features: [
+      "Tout le plan Essentiel",
+      "Import CERFA & conformité F-Gaz",
+      "Génération CERFA + Trackdéchets",
+      "Multi-société natif",
+      "Devis & facturation",
+      "Tournées optimisées",
+      "Équipements & QR codes",
+      "Tableau de bord avancé",
+    ],
+  },
+  {
+    name: "Entreprise",
+    pitch: "Pour les groupes, franchises et réseaux multi-sociétés.",
+    annual: "Sur devis",
+    monthly: "Sur devis",
+    unit: "",
+    highlight: false,
+    cta: "Nous contacter",
+    devis: true,
+    features: [
+      "Tout le plan Pro / Métier",
+      "Multi-société avancé",
+      "API REST & intégrations ERP/CRM",
+      "SSO / authentification dédiée",
+      "Hébergement dédié possible",
+      "Accompagnement au déploiement",
+      "Support prioritaire & SLA",
+    ],
+  },
+];
+
+const faq = [
+  ["Quelle différence entre mensuel et annuel ?", "Le tarif annuel est environ 20 % moins cher : vous réglez 12 mois en une fois et bénéficiez du meilleur prix. Le tarif mensuel est sans engagement : vous payez au mois et pouvez arrêter à tout moment, contre un prix un peu plus élevé."],
+  ["Comment fonctionne la facturation ?", "Au nombre d'utilisateurs (techniciens, managers, admins) actifs. Vous ajustez à tout moment selon votre équipe. Paiement par carte en ligne, sécurisé."],
+  ["Y a-t-il des frais de mise en service ?", "La mise en service et la reprise de votre base sont offertes sur les abonnements annuels. Pour des besoins spécifiques (migration complexe, intégrations), un devis d'accompagnement est établi avec vous."],
+  ["Le portail client est-il payant en plus ?", "Non. Le portail client est inclus dès le plan Essentiel, sans surcoût ni limite de clients."],
+  ["Puis-je changer de plan ou de période ?", "Oui, vous pouvez monter/descendre de plan et passer du mensuel à l'annuel à tout moment. Les nouvelles fonctionnalités sont disponibles immédiatement."],
+  ["La conformité CERFA / F-Gaz est-elle incluse ?", "Elle est incluse dès le plan Pro / Métier : import du CERFA officiel, génération automatique pré-remplie, signatures et connecteur Trackdéchets."],
+];
+---
+
+<Layout title="Tarifs — Fixely" description="Tarifs Fixely : à partir de 19 € HT par utilisateur et par mois (annuel) ou sans engagement au mois. App mobile offline, CERFA/F-Gaz, multi-société.">
+  <section class="bg-grid border-b border-ink-300/30">
+    <div class="mx-auto max-w-3xl px-5 py-16 text-center lg:py-20">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900 sm:text-5xl">
+        Des tarifs <span class="text-brand-600">clairs et accessibles</span>
+      </h1>
+      <p class="mt-5 text-lg text-ink-700">
+        À partir de <strong class="text-ink-900">19 € HT</strong> par utilisateur et par mois.
+        Sans frais cachés. Tout est inclus, du planning à la signature client.
+      </p>
+
+      <!-- Sélecteur Annuel / Mensuel -->
+      <div class="mt-8 inline-flex items-center rounded-xl border border-ink-300/60 bg-white p-1 shadow-sm" role="group">
+        <button
+          id="btn-annual"
+          type="button"
+          class="rounded-lg px-4 py-2 text-sm font-semibold transition-colors bg-brand-600 text-white"
+        >
+          Annuel
+          <span class="ml-1 rounded-full bg-white/20 px-1.5 py-0.5 text-[11px] font-bold">−20 %</span>
+        </button>
+        <button
+          id="btn-monthly"
+          type="button"
+          class="rounded-lg px-4 py-2 text-sm font-semibold text-ink-600 transition-colors"
+        >
+          Mensuel
+        </button>
+      </div>
+      <p class="mt-2 text-xs text-ink-400">Sans engagement en mensuel · meilleur prix en annuel</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 py-16">
+    <div class="grid items-start gap-6 lg:grid-cols-3">
+      {
+        plans.map((p) => (
+          <div class={`relative rounded-3xl border bg-white p-8 ${p.highlight ? "border-brand-600 shadow-2xl shadow-brand-600/15 lg:-mt-4 lg:mb-4" : "border-ink-300/40"}`}>
+            {p.highlight && (
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent-500 px-3 py-1 text-xs font-bold text-white">
+                Le plus choisi
+              </span>
+            )}
+            <h2 class="text-xl font-bold text-ink-900">{p.name}</h2>
+            <p class="mt-2 min-h-[44px] text-sm text-ink-500">{p.pitch}</p>
+
+            <div class="mt-5 flex items-baseline gap-1">
+              {p.devis ? (
+                <span class="text-3xl font-extrabold text-ink-900">Sur devis</span>
+              ) : (
+                <>
+                  <span
+                    class="text-4xl font-extrabold text-ink-900"
+                    data-annual={p.annual}
+                    data-monthly={p.monthly}
+                  >
+                    {p.annual}
+                  </span>
+                  <span class="text-2xl font-bold text-ink-900">€</span>
+                  <span class="ml-1 text-sm text-ink-500">{p.unit}</span>
+                </>
+              )}
+            </div>
+            <p class="price-note mt-1 text-xs text-ink-400">
+              {p.devis ? "tarif dégressif au volume" : "facturé annuellement"}
+            </p>
+
+            <a
+              href="/demo"
+              class={`mt-6 block rounded-xl px-5 py-3 text-center text-sm font-semibold transition-colors ${p.highlight ? "bg-brand-600 text-white hover:bg-brand-700" : "border border-ink-300 text-ink-700 hover:border-brand-300 hover:text-brand-700"}`}
+            >
+              {p.cta}
+            </a>
+            <ul class="mt-7 space-y-3">
+              {p.features.map((f) => (
+                <li class="flex items-start gap-2.5 text-sm text-ink-700">
+                  <svg class="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mx-auto mt-10 max-w-3xl text-center text-sm text-ink-500">
+      Tarifs HT, par utilisateur. <strong class="text-ink-700">Annuel</strong> : meilleur prix, facturé en une fois.
+      <strong class="text-ink-700">Mensuel</strong> : sans engagement, résiliable à tout moment.
+      Mise en service offerte en annuel. Tarifs dégressifs à partir de 20 utilisateurs — parlons-en.
+    </p>
+  </section>
+
+  <!-- Argument comparatif -->
+  <section class="border-y border-ink-300/30 bg-brand-50/40">
+    <div class="mx-auto max-w-3xl px-5 py-16 text-center">
+      <h2 class="text-2xl font-extrabold text-ink-900 sm:text-3xl">
+        Tout-en-un, sans payer le prix fort
+      </h2>
+      <p class="mt-4 text-ink-700">
+        Là où il faut souvent cumuler un outil de planning, un outil de
+        formulaires et un logiciel CERFA spécialisé, Fixely réunit tout dans une
+        seule plateforme — app mobile hors-ligne, conformité F-Gaz et
+        multi-société compris, à un tarif PME.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="mx-auto max-w-3xl px-5 py-16 pb-24">
+    <h2 class="text-center text-2xl font-extrabold text-ink-900 sm:text-3xl">Questions fréquentes</h2>
+    <div class="mt-10 space-y-3">
+      {
+        faq.map(([q, a]) => (
+          <details class="group rounded-2xl border border-ink-300/40 bg-white p-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-ink-900">
+              {q}
+              <svg class="h-5 w-5 text-ink-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-ink-700">{a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <script>
+    const btnAnnual = document.getElementById("btn-annual");
+    const btnMonthly = document.getElementById("btn-monthly");
+    const ON = ["bg-brand-600", "text-white"];
+    const OFF = ["text-ink-600"];
+
+    function setPeriod(period: "annual" | "monthly") {
+      // Met à jour chaque prix selon la période
+      document.querySelectorAll<HTMLElement>("[data-annual]").forEach((el) => {
+        el.textContent = period === "annual" ? el.dataset.annual! : el.dataset.monthly!;
+      });
+      // Met à jour les notes (facturé annuellement / mensuel sans engagement)
+      document.querySelectorAll<HTMLElement>(".price-note").forEach((el) => {
+        if (el.textContent?.includes("dégressif")) return; // carte Entreprise
+        el.textContent = period === "annual"
+          ? "facturé annuellement"
+          : "sans engagement, au mois";
+      });
+      // Style des boutons
+      if (period === "annual") {
+        btnAnnual?.classList.add(...ON);
+        btnAnnual?.classList.remove(...OFF);
+        btnMonthly?.classList.remove(...ON);
+        btnMonthly?.classList.add(...OFF);
+      } else {
+        btnMonthly?.classList.add(...ON);
+        btnMonthly?.classList.remove(...OFF);
+        btnAnnual?.classList.remove(...ON);
+        btnAnnual?.classList.add(...OFF);
+      }
+    }
+
+    btnAnnual?.addEventListener("click", () => setPeriod("annual"));
+    btnMonthly?.addEventListener("click", () => setPeriod("monthly"));
+    // Annuel par défaut (déjà rendu côté serveur)
+  </script>
+</Layout>

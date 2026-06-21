@@ -1,0 +1,76 @@
+---
+const year = 2026;
+const cols = [
+  {
+    title: "Produit",
+    links: [
+      { href: "/fonctionnalites", label: "Fonctionnalités" },
+      { href: "/metiers", label: "Métiers" },
+      { href: "/tarifs", label: "Tarifs" },
+      { href: "/demo", label: "Demander une démo" },
+    ],
+  },
+  {
+    title: "Ressources",
+    links: [
+      { href: "https://fixely.aegix.fr/", label: "Connexion" },
+      { href: "/demo", label: "Nous contacter" },
+      { href: "/confidentialite", label: "Confidentialité" },
+    ],
+  },
+];
+---
+
+<footer class="border-t border-ink-300/30 bg-ink-900 text-white">
+  <div class="mx-auto max-w-7xl px-5 py-14">
+    <div class="grid gap-10 md:grid-cols-4">
+      <!-- Marque -->
+      <div class="md:col-span-2">
+        <a href="/" class="flex items-center gap-2.5">
+          <img src="/logo.png" alt="Fixely" class="h-9 w-9 rounded-lg bg-white p-1" />
+          <span class="text-lg font-extrabold tracking-tight">Fixely</span>
+        </a>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-ink-300">
+          Le logiciel de gestion des interventions terrain qui digitalise toute
+          la chaîne : du planning bureau à la signature client, en passant par
+          l'app mobile de vos techniciens.
+        </p>
+        <p class="mt-5 text-xs text-ink-500">
+          Édité par <span class="font-semibold text-ink-300">AEGIX</span>
+        </p>
+      </div>
+
+      {
+        cols.map((c) => (
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-ink-500">
+              {c.title}
+            </h3>
+            <ul class="mt-4 space-y-2.5">
+              {c.links.map((l) => (
+                <li>
+                  <a
+                    href={l.href}
+                    class="text-sm text-ink-300 transition-colors hover:text-white"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-ink-500 sm:flex-row"
+    >
+      <p>© {year} Fixely · AEGIX. Tous droits réservés.</p>
+      <p class="flex items-center gap-1.5">
+        <span class="h-1.5 w-1.5 rounded-full bg-green-400"></span>
+        Plateforme FSM
+      </p>
+    </div>
+  </div>
+</footer>

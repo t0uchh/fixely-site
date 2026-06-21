@@ -1,0 +1,157 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import Layout from "../layouts/Layout.astro";
+import Screenshot from "../components/Screenshot.astro";
+
+// Galerie : on n'affiche que les captures réellement présentes.
+const shotsDir = path.resolve("./public/screenshots");
+const hasShot = (f: string) => {
+  try { return fs.existsSync(path.join(shotsDir, f)); } catch { return false; }
+};
+const gallery = [
+  { file: "planning.png", title: "Planning des interventions", desc: "Calendrier interactif, affectation par glisser-déposer.", url: "fixely.aegix.fr/planning" },
+  { file: "interventions.png", title: "Liste des interventions", desc: "Recherche, filtres et suivi de tous vos chantiers.", url: "fixely.aegix.fr/interventions" },
+  { file: "intervention-detail.png", title: "Détail d'une intervention", desc: "Historique, formulaires, devis, signatures et rapport.", url: "fixely.aegix.fr/interventions/…" },
+  { file: "clients.png", title: "Clients & sites", desc: "Votre base clients, sites et équipements centralisée.", url: "fixely.aegix.fr/clients" },
+].filter((g) => hasShot(g.file));
+
+const groups = [
+  {
+    tag: "Gestion des interventions",
+    color: "brand",
+    items: [
+      ["Workflow 13 statuts", "De la création à la clôture, chaque transition est tracée et horodatée."],
+      ["Planning visuel", "Calendrier interactif, affectation par glisser-déposer, vue jour/semaine/mois."],
+      ["Tournées optimisées", "Regroupez les interventions en tournées multi-étapes par technicien."],
+      ["Notifications push", "Vos techniciens sont prévenus instantanément des nouvelles affectations."],
+    ],
+  },
+  {
+    tag: "Application mobile terrain",
+    color: "accent",
+    items: [
+      ["Workflow guidé", "En route, arrivé, en cours, terminé — avec GPS et horodatage à chaque étape."],
+      ["Mode hors-ligne", "Tout fonctionne sans réseau ; synchronisation automatique au retour."],
+      ["Photos & signatures", "Documentez l'intervention, faites signer le client directement sur mobile."],
+      ["Compte-rendu", "Le technicien rédige son rapport, sauvegardé automatiquement."],
+    ],
+  },
+  {
+    tag: "Formulaires métier",
+    color: "green",
+    items: [
+      ["Sans code", "Créez vos fiches d'intervention avec 15 types de champs, sans développeur."],
+      ["Conditions & alertes", "Affichez des champs selon le contexte, déclenchez des alertes métier."],
+      ["Import CERFA", "Un CERFA officiel devient un formulaire numérique rempli automatiquement."],
+      ["Multi-formulaires", "Plusieurs fiches par intervention (CERFA + dépannage + attestation)."],
+    ],
+  },
+  {
+    tag: "Équipements & conformité",
+    color: "brand",
+    items: [
+      ["Référentiel équipements", "Parc client/site avec QR codes pour un scan terrain rapide."],
+      ["Historique par équipement", "Toutes les interventions d'un équipement au même endroit."],
+      ["Conformité F-Gaz", "Suivi réglementaire, attestations et contrôles d'étanchéité."],
+      ["Validation manager", "Les équipements créés par les techniciens sont validés avant catalogue."],
+    ],
+  },
+  {
+    tag: "Portail client",
+    color: "green",
+    items: [
+      ["Libre-service 24/7", "Vos clients suivent leurs interventions en temps réel."],
+      ["Validation & notation", "Le client valide l'intervention et l'évalue."],
+      ["Rapports PDF", "Téléchargement des rapports d'intervention à tout moment."],
+      ["Demandes en ligne", "Le client dépose ses demandes d'intervention directement."],
+    ],
+  },
+  {
+    tag: "Devis, factures & pilotage",
+    color: "accent",
+    items: [
+      ["Devis & factures", "Liés aux interventions, générés en PDF, envoyés par email brandé."],
+      ["Demande de devis terrain", "Le technicien déclenche une demande de devis depuis l'intervention."],
+      ["Tableau de bord", "KPI temps réel, carte des techniciens en mission, activité 7 jours."],
+      ["Import/export Excel", "Reprise et mise à jour en masse de votre base clients."],
+    ],
+  },
+];
+---
+
+<Layout title="Fonctionnalités — Fixely" description="Toutes les fonctionnalités de Fixely : planning, app mobile, formulaires métier, CERFA, portail client, devis et facturation.">
+  <section class="bg-grid border-b border-ink-300/30">
+    <div class="mx-auto max-w-3xl px-5 py-16 text-center lg:py-20">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900 sm:text-5xl">
+        Tout ce qu'il faut pour <span class="text-brand-600">gérer le terrain</span>
+      </h1>
+      <p class="mt-5 text-lg text-ink-700">
+        Une suite complète, du bureau au technicien, jusqu'à votre client final.
+      </p>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-7xl space-y-16 px-5 py-16">
+    {
+      groups.map((g) => (
+        <section>
+          <div class="mb-6 flex items-center gap-3">
+            <span class={`h-8 w-1.5 rounded-full ${g.color==='brand'?'bg-brand-600':g.color==='accent'?'bg-accent-500':'bg-green-500'}`} />
+            <h2 class="text-2xl font-bold text-ink-900">{g.tag}</h2>
+          </div>
+          <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {g.items.map(([t, d]) => (
+              <div class="rounded-2xl border border-ink-300/40 bg-white p-5 transition-all hover:border-brand-300 hover:shadow-lg hover:shadow-brand-900/5">
+                <h3 class="font-bold text-ink-900">{t}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-500">{d}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+
+  {
+    gallery.length > 0 && (
+      <section class="border-t border-ink-300/30 bg-brand-50/40">
+        <div class="mx-auto max-w-7xl px-5 py-20">
+          <div class="mx-auto max-w-2xl text-center">
+            <h2 class="text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">
+              Fixely en images
+            </h2>
+            <p class="mt-4 text-lg text-ink-700">
+              Des écrans pensés pour aller vite, au bureau comme sur le terrain.
+            </p>
+          </div>
+          <div class="mt-14 grid gap-8 lg:grid-cols-2">
+            {gallery.map((g) => (
+              <div>
+                <Screenshot
+                  src={`/screenshots/${g.file}`}
+                  alt={g.title}
+                  variant="browser"
+                  url={g.url}
+                />
+                <h3 class="mt-4 font-bold text-ink-900">{g.title}</h3>
+                <p class="mt-1 text-sm text-ink-500">{g.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="mx-auto max-w-7xl px-5 pb-24 pt-20">
+    <div class="rounded-3xl bg-ink-900 px-8 py-14 text-center">
+      <h2 class="text-2xl font-extrabold text-white sm:text-3xl">Une fonctionnalité vous manque ?</h2>
+      <p class="mx-auto mt-3 max-w-xl text-ink-300">Fixely évolue avec vos besoins métier. Parlons-en lors d'une démo.</p>
+      <a href="/demo" class="mt-7 inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3.5 font-semibold text-white transition-colors hover:bg-brand-700">
+        Demander une démo
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+      </a>
+    </div>
+  </section>
+</Layout>

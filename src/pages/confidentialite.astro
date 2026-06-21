@@ -1,0 +1,126 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const updated = "11 juin 2026";
+
+const sections = [
+  {
+    title: "1. Responsable du traitement",
+    body: `Le présent site et la plateforme Fixely sont édités par AEGIX. Pour toute
+    question relative à la protection de vos données, vous pouvez nous contacter
+    à l'adresse <a href="mailto:contact@aegix.fr" class="text-brand-600 hover:underline">contact@aegix.fr</a>.`,
+  },
+  {
+    title: "2. Données collectées",
+    body: `Nous collectons uniquement les données nécessaires à la fourniture du
+    service :
+    <ul class="mt-3 list-disc space-y-1.5 pl-5">
+      <li><strong>Données de contact</strong> (nom, prénom, email, téléphone, société) lorsque vous demandez une démo ou nous contactez.</li>
+      <li><strong>Données d'utilisation de la plateforme</strong> (interventions, clients, équipements, formulaires) saisies par les utilisateurs de chaque société cliente.</li>
+      <li><strong>Données techniques</strong> (logs de connexion, adresse IP) à des fins de sécurité et de bon fonctionnement.</li>
+    </ul>`,
+  },
+  {
+    title: "3. Finalités",
+    body: `Vos données sont traitées pour : répondre à vos demandes de démo et de
+    contact, fournir et améliorer le service Fixely, assurer la sécurité de la
+    plateforme, et respecter nos obligations légales et réglementaires.`,
+  },
+  {
+    title: "4. Base légale",
+    body: `Les traitements reposent sur votre consentement (formulaire de contact),
+    l'exécution du contrat de service (utilisation de la plateforme), et notre
+    intérêt légitime à sécuriser et améliorer le service.`,
+  },
+  {
+    title: "5. Hébergement et cloisonnement",
+    body: `Les données sont hébergées sur une infrastructure maîtrisée. Dans le
+    cadre du fonctionnement multi-société de Fixely, les données de chaque
+    société cliente sont strictement cloisonnées : une société n'a jamais accès
+    aux données d'une autre.`,
+  },
+  {
+    title: "6. Durée de conservation",
+    body: `Les données de prospection (demandes de démo) sont conservées au maximum
+    3 ans après le dernier contact. Les données de la plateforme sont conservées
+    pendant toute la durée du contrat, puis supprimées ou anonymisées selon les
+    obligations légales applicables (notamment la conservation des documents
+    réglementaires type CERFA).`,
+  },
+  {
+    title: "7. Partage des données",
+    body: `Vos données ne sont jamais vendues. Elles ne sont partagées qu'avec les
+    sous-traitants techniques strictement nécessaires au fonctionnement du
+    service (hébergement, envoi d'emails, notifications), dans le respect du RGPD.`,
+  },
+  {
+    title: "8. Vos droits",
+    body: `Conformément au RGPD, vous disposez d'un droit d'accès, de rectification,
+    d'effacement, de limitation, d'opposition et de portabilité de vos données.
+    Pour exercer ces droits, écrivez-nous à
+    <a href="mailto:contact@aegix.fr" class="text-brand-600 hover:underline">contact@aegix.fr</a>.
+    Vous pouvez également introduire une réclamation auprès de la CNIL.`,
+  },
+  {
+    title: "9. Cookies",
+    body: `Ce site vitrine n'utilise pas de cookies de suivi publicitaire. Seuls des
+    cookies techniques strictement nécessaires peuvent être déposés. La
+    plateforme Fixely utilise un cookie de session pour vous maintenir connecté.`,
+  },
+  {
+    title: "10. Modifications",
+    body: `La présente politique peut être mise à jour. La date de dernière mise à
+    jour figure en haut de cette page. Nous vous invitons à la consulter
+    régulièrement.`,
+  },
+];
+---
+
+<Layout title="Politique de confidentialité — Fixely" description="Politique de confidentialité et protection des données personnelles de Fixely (AEGIX), conforme au RGPD.">
+  <section class="bg-grid border-b border-ink-300/30">
+    <div class="mx-auto max-w-3xl px-5 py-16 lg:py-20">
+      <h1 class="text-4xl font-extrabold tracking-tight text-ink-900 sm:text-5xl">
+        Politique de confidentialité
+      </h1>
+      <p class="mt-4 text-ink-500">Dernière mise à jour : {updated}</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-5 py-14">
+    <p class="text-lg leading-relaxed text-ink-700">
+      Chez Fixely, la protection de vos données est une priorité. Cette page
+      explique quelles données nous traitons, pourquoi, et quels sont vos droits.
+    </p>
+
+    <div class="mt-12 space-y-10">
+      {
+        sections.map((s) => (
+          <div>
+            <h2 class="text-xl font-bold text-ink-900">{s.title}</h2>
+            <div class="mt-3 text-[15px] leading-relaxed text-ink-700" set:html={s.body} />
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-10">
+      <h2 class="text-xl font-bold text-ink-900">Suppression et accès à vos données</h2>
+      <div class="mt-3 text-[15px] leading-relaxed text-ink-700">
+        <p>Vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles.</p>
+        <p class="mt-2">
+          Les comptes utilisateurs étant fournis et gérés par votre entreprise, vous pouvez demander la
+          suppression de vos données auprès de votre administrateur Fixely, ou directement par e-mail à
+          <a href="mailto:contact@fixely.app" class="font-semibold text-brand-600 hover:underline">contact@fixely.app</a>.
+          Toute demande de suppression est traitée sous 30 jours.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-14 rounded-2xl border border-ink-300/40 bg-brand-50/50 p-6">
+      <p class="text-sm text-ink-700">
+        Une question sur vos données ?
+        <a href="mailto:contact@fixely.app" class="font-semibold text-brand-600 hover:underline">contact@fixely.app</a>
+      </p>
+    </div>
+  </section>
+</Layout>
