@@ -12,6 +12,9 @@ const {
   title = "Fixely — Logiciel de gestion des interventions terrain (FSM)",
   description = "Fixely digitalise vos interventions terrain : planification, app mobile technicien, formulaires métier, portail client et rapports PDF. Solution FSM clé en main.",
 } = Astro.props;
+
+// Suivi d'audience : beacon vers le backend Fixely (source 'site').
+const TRACK_URL = import.meta.env.PUBLIC_TRACK_URL || "https://my.fixely.app/track/";
 ---
 
 <!doctype html>
@@ -43,5 +46,22 @@ const {
       <slot />
     </main>
     <Footer />
+    <script is:inline define:vars={{ TRACK_URL }}>
+      try {
+        var payload = JSON.stringify({
+          path: location.pathname + location.search,
+          ref: document.referrer || "",
+        });
+        var blob = new Blob([payload], { type: "text/plain" });
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(TRACK_URL, blob);
+        } else {
+          fetch(TRACK_URL, {
+            method: "POST", body: payload, mode: "no-cors", keepalive: true,
+            headers: { "Content-Type": "text/plain" },
+          });
+        }
+      } catch (e) {}
+    </script>
   </body>
 </html>

@@ -1,4 +1,5 @@
 ---
+const appUrl = import.meta.env.PUBLIC_APP_URL || "https://my.fixely.app";
 const year = 2026;
 const cols = [
   {
@@ -13,9 +14,10 @@ const cols = [
   {
     title: "Ressources",
     links: [
-      { href: "https://fixely.aegix.fr/", label: "Connexion" },
+      { href: `${appUrl}/`, label: "Connexion" },
       { href: "/demo", label: "Nous contacter" },
       { href: "/confidentialite", label: "Confidentialité" },
+      { href: "/cgu", label: "CGU" },
     ],
   },
 ];

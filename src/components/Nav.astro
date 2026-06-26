@@ -1,4 +1,5 @@
 ---
+const appUrl = import.meta.env.PUBLIC_APP_URL || "https://my.fixely.app";
 const links = [
   { href: "/fonctionnalites", label: "Fonctionnalités" },
   { href: "/metiers", label: "Métiers" },
@@ -34,14 +35,19 @@ const links = [
     <!-- CTA desktop -->
     <div class="hidden items-center gap-3 md:flex">
       <a
-        href="https://my.fixely.app/"
+        href={`${appUrl}/`}
         class="rounded-lg px-3.5 py-2 text-sm font-medium text-ink-700 transition-colors hover:text-brand-700"
         >Connexion</a
       >
       <a
         href="/demo"
-        class="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow"
+        class="rounded-lg border border-brand-200 px-4 py-2 text-sm font-semibold text-brand-700 transition-all hover:bg-brand-50"
         >Demander une démo</a
+      >
+      <a
+        href={`${appUrl}/inscription/`}
+        class="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 hover:shadow"
+        >Essai gratuit</a
       >
     </div>
 
@@ -71,14 +77,19 @@ const links = [
         ))
       }
       <a
-        href="https://my.fixely.app/"
+        href={`${appUrl}/`}
         class="rounded-lg px-3 py-2.5 text-sm font-medium text-ink-700 hover:bg-brand-50"
         >Connexion</a
       >
       <a
         href="/demo"
-        class="mt-2 rounded-lg bg-brand-600 px-4 py-2.5 text-center text-sm font-semibold text-white"
+        class="mt-2 rounded-lg border border-brand-200 px-4 py-2.5 text-center text-sm font-semibold text-brand-700"
         >Demander une démo</a
+      >
+      <a
+        href={`${appUrl}/inscription/`}
+        class="mt-2 rounded-lg bg-brand-600 px-4 py-2.5 text-center text-sm font-semibold text-white"
+        >Essai gratuit</a
       >
     </div>
   </div>
